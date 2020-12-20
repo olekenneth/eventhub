@@ -1,11 +1,7 @@
 name: Docker build
 on:
-  workflow_dispatch:
-    inputs:
-      tagAsLatest:
-        description: 'Tag this build as latest'
-        required: true
-        default: "false"
+  push:
+    branches:  [docker-build]
 
 jobs:
   build:
@@ -24,9 +20,3 @@ jobs:
 
       - name: Push docker image to quay.io
         run: docker push quay.io/olesku/eventhub:${GITHUB_REF##*/}
-
-      - name: Tag and push as latest
-        run: | 
-          docker tag quay.io/olesku/eventhub:${GITHUB_REF##*/} quay.io/olesku/eventhub:latest
-          docker push quay.io/olesku/eventhub:latest
-        if: ${{github.event.inputs.tagAsLatest}} == true
