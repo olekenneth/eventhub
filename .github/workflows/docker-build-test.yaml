@@ -5,6 +5,7 @@ on:
 
 jobs:
   build:
+    environment: default
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -21,5 +22,5 @@ jobs:
           QUAY_USER: ${{secrets.QUAY_USER}}
           QUAY_PASSWORD: ${{secrets.QUAY_PASSWORD}}
 
-      - name: Push docker image to quay.io
-        run: docker push quay.io/olesku/eventhub:${GITHUB_REF##*/}
+      #- name: Push docker image to quay.io
+      #  run: docker push quay.io/olesku/eventhub:${GITHUB_REF##*/}
