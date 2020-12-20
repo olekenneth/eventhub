@@ -9,11 +9,14 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v1
-      - name: Build docker image
-        run: docker build -t quay.io/olesku/eventhub:${GITHUB_REF##*/} .
+
+      #- name: Build docker image
+      #  run: docker build -t quay.io/olesku/eventhub:${GITHUB_REF##*/} .
 
       - name: Log into quay.io
-        run: docker login -u ${QUAY_USER} -p ${QUAY_PASSWORD} quay.io
+        run: |
+          echo docker login -u ${QUAY_USER} -p ${QUAY_PASSWORD} quay.io
+          docker login -u ${QUAY_USER} -p ${QUAY_PASSWORD} quay.io
         env:
           QUAY_USER: ${{secrets.QUAY_USER}}
           QUAY_PASSWORD: ${{secrets.QUAY_PASSWORD}}
