@@ -21,7 +21,7 @@ add_library( core
   Connection.cpp
   ConnectionWorker.cpp
   AccessController.cpp
-  EpollWrapper.cpp
+  #EpollWrapper.cpp
 )
 
 add_executable(eventhub main.cpp)
