@@ -11,8 +11,8 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v1
 
-      #- name: Build docker image
-      #  run: docker build -t quay.io/olesku/eventhub:${GITHUB_REF##*/} .
+      - name: Build docker image
+        run: docker build -t quay.io/olesku/eventhub:${GITHUB_REF##*/} .
 
       - name: Log into quay.io
         run: |
@@ -22,5 +22,5 @@ jobs:
           QUAY_USER: ${{secrets.QUAY_USER}}
           QUAY_PASSWORD: ${{secrets.QUAY_PASSWORD}}
 
-      #- name: Push docker image to quay.io
-      #  run: docker push quay.io/olesku/eventhub:${GITHUB_REF##*/}
+      - name: Push docker image to quay.io
+        run: docker push quay.io/olesku/eventhub:${GITHUB_REF##*/}
