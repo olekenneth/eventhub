@@ -1,23 +1,23 @@
-name: Docker build
+name: Build docker image
 on:
-  workflow_dispatch:
-    inputs:
-      tagAsLatest:
-        description: 'Tag this build as latest'
-        required: true
-        default: "false"
-
+  push:
+    tags: 
+    - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: default
     steps:
       - name: Git checkout
         uses: actions/checkout@v1
+
       - name: Build docker image
         run: docker build -t quay.io/olesku/eventhub:${GITHUB_REF##*/} .
 
       - name: Log into quay.io
-        run: docker login -u ${QUAY_USER) -p ${QUAY_PASSWORD} quay.io
+        run: |
+          echo docker login -u ${QUAY_USER} -p ${QUAY_PASSWORD} quay.io
+          docker login -u ${QUAY_USER} -p ${QUAY_PASSWORD} quay.io
         env:
           QUAY_USER: ${{secrets.QUAY_USER}}
           QUAY_PASSWORD: ${{secrets.QUAY_PASSWORD}}
@@ -29,4 +29,3 @@ jobs:
         run: | 
           docker tag quay.io/olesku/eventhub:${GITHUB_REF##*/} quay.io/olesku/eventhub:latest
           docker push quay.io/olesku/eventhub:latest
-        if: ${{github.event.inputs.tagAsLatest}} == true

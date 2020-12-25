@@ -2,11 +2,10 @@ name: Docker build
 on:
   push:
     branches:  [docker-build]
-
 jobs:
   build:
-    environment: default
     runs-on: ubuntu-latest
+    environment: default
     steps:
       - name: Git checkout
         uses: actions/checkout@v1
